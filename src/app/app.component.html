@@ -1,0 +1,94 @@
+<nav class="navbar navbar-light bg-light fixed-top">
+  <span class="navbar-brand m-2 h1">Simple App</span>
+</nav>
+<div class="mainMarg">
+  <div class="container mt-3">
+    <div class="row justify-content-around">
+      <div class="col-md-6 col-sm-12">
+        <div class="card h-100">
+          <div class="card-header">
+            <h6>Select an image to drag and drop</h6>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <div class="popular-img-block">
+                <ng-container *ngFor="let image of imageArray">
+                  <img class="img-fluid custom-fit p-1" [src]="image" alt="Gallery-1" draggable [dragData]="image">
+                </ng-container>
+              </div>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="card h-100">
+          <div class="card-header">
+            <h6>Select a name to drag and drop</h6>
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <ul class="list-group">
+                <div *ngFor="let name of nameArray">
+                  <li class="list-group-item" draggable [dragData]="name">{{name}}</li>
+                </div>
+              </ul>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row m-3">
+    <div class="col px-0">
+      <div class="card ext1">
+        <div class="card-header">
+          <h6>Select an image to drag</h6>
+        </div>
+        <div class="card-body" droppable (onDrop)="onItemDrop($event)">
+          <blockquote class="blockquote mb-0">
+            <div class="popular-img-block" id="listTwo" cdkDropList (cdkDropListDropped)="imageFirst($event)">
+              <ng-container *ngFor="let image of droppedItems;let i=index">
+                <div class="row">
+                  <div class="col">
+                    <img class="img-fluid custom-fit p-1" [src]="image" alt="Gallery-1" cdkDrag>
+                  </div>
+                  <div class="col">
+                    <span class="material-icons right" (click)="removeImage(i)">
+                      delete
+                    </span>
+                  </div>
+                </div>
+                <hr class="new3">
+              </ng-container>
+            </div>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+    <div class="col px-0">
+      <div class="card ext2">
+        <div class="card-header">
+          <h6>Select a name to drag</h6>
+        </div>
+        <div class="card-body" droppable (onDrop)="onNameDrop($event)">
+          <blockquote class="blockquote mb-0" cdkDropList (cdkDropListDropped)="namesSecond($event)">
+            <div *ngFor="let name of droppedNames;let i=index">
+              <div class="row">
+                <div class="col">
+                  <div style="height: 100px !important;cursor: pointer;" cdkDrag>{{name}}</div>
+                </div>
+                <div class="col">
+                  <span class="material-icons right" (click)="removeName(i)">
+                    delete
+                  </span>
+                </div>
+              </div>
+              <hr class="new3">
+            </div>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
